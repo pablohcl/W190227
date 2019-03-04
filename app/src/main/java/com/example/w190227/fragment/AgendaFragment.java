@@ -26,7 +26,7 @@ public class AgendaFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        getActivity().setTitle("Agenda");
 
     }
 }
