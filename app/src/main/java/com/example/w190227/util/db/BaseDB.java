@@ -109,8 +109,8 @@ public class BaseDB extends SQLiteOpenHelper {
 
     // ############ BANCO, NOME, VERSAO #############
 
-    private static final String BANCO_NOME = "w190225.sqlite";
-    private static final int BANCO_VERSAO = 1;
+    private static final String BANCO_NOME = "w190227.sqlite";
+    private static final int BANCO_VERSAO = 2;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);
