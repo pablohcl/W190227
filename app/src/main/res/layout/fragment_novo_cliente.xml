@@ -20,14 +20,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Dias"
                 android:textColor="@color/md_black_1000"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/et_obs"
                 app:layout_constraintStart_toEndOf="@+id/et_frequencia"
-                app:layout_constraintTop_toBottomOf="@id/tv_dados_adicionais"
+                app:layout_constraintTop_toBottomOf="@+id/btn_mudar_data"
                 app:layout_constraintVertical_bias="0.75" />
 
             <android.support.design.widget.TextInputLayout
@@ -63,7 +63,7 @@
                 android:hint="Frequência*"
                 app:boxBackgroundColor="@color/md_grey_300"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_dados_adicionais">
+                app:layout_constraintTop_toBottomOf="@+id/btn_mudar_data">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="100dp"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Dados adicionais"
+                android:text="Dia de visita"
                 android:textColor="@color/md_black_1000"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Dados da Empresa"
+                android:text="Dados da empresa"
                 android:textColor="@color/md_black_1000"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -240,6 +240,93 @@
                         android:inputType="textCapSentences" />
                 </android.support.design.widget.TextInputLayout>
             </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_dia_visita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="11"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="/"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
+                app:layout_constraintStart_toEndOf="@+id/tv_dia_visita"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tv_mes_visita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="12"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="/"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
+                app:layout_constraintStart_toEndOf="@+id/tv_mes_visita"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tv_ano_visita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="19"
+                android:textColor="@color/md_black_1000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/btn_mudar_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/md_blue_800"
+                android:text="Mudar"
+                android:textColor="@color/md_white_1000"
+                app:layout_constraintStart_toEndOf="@+id/tv_ano_visita"
+                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

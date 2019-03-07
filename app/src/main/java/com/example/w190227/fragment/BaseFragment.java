@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.w190227.R;
 
+import java.util.Calendar;
+
 public class BaseFragment extends Fragment {
 
     protected void replaceFragment(Fragment f){
@@ -35,5 +37,11 @@ public class BaseFragment extends Fragment {
     public void setNavigationViewVisible(){
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    public Calendar calcularNovaData(Calendar ultimaData, int numOfDays){
+        Calendar ultimoDia = ultimaData;
+        ultimoDia.add(Calendar.DAY_OF_MONTH, numOfDays);
+        return ultimoDia;
     }
 }
