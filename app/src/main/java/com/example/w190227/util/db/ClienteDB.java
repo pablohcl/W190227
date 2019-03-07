@@ -36,6 +36,12 @@ public class ClienteDB {
         cv.put(BaseDB.CLIENTE_BAIRRO, c.getBairro());
         cv.put(BaseDB.CLIENTE_RUA, c.getRua());
         cv.put(BaseDB.CLIENTE_NUMERO, c.getNumero());
+        cv.put(BaseDB.CLIENTE_ULTIMA_DATA_DIA, c.getUltimaDataDia());
+        cv.put(BaseDB.CLIENTE_ULTIMA_DATA_MES, c.getUltimaDataMes());
+        cv.put(BaseDB.CLIENTE_ULTIMA_DATA_ANO, c.getUltimaDataAno());
+        cv.put(BaseDB.CLIENTE_PROXIMA_DATA_DIA, c.getProximaDataDia());
+        cv.put(BaseDB.CLIENTE_PROXIMA_DATA_MES, c.getProximaDataMes());
+        cv.put(BaseDB.CLIENTE_PROXIMA_DATA_ANO, c.getProximaDataAno());
         cv.put(BaseDB.CLIENTE_FREQUENCIA, c.getFrequencia());
         cv.put(BaseDB.CLIENTE_OBS, c.getObs());
         cv.put(BaseDB.CLIENTE_VENDEDOR, c.getVendedor());
@@ -69,9 +75,15 @@ public class ClienteDB {
             c.setBairro(cursor.getString(4));
             c.setRua(cursor.getString(5));
             c.setNumero(cursor.getString(6));
-            c.setFrequencia(cursor.getString(7));
-            c.setObs(cursor.getString(8));
-            c.setVendedor(cursor.getString(9));
+            c.setUltimaDataDia(cursor.getString(7));
+            c.setUltimaDataMes(cursor.getString(8));
+            c.setUltimaDataAno(cursor.getString(9));
+            c.setProximaDataDia(cursor.getString(10));
+            c.setProximaDataMes(cursor.getString(11));
+            c.setProximaDataAno(cursor.getString(12));
+            c.setFrequencia(cursor.getString(13));
+            c.setObs(cursor.getString(14));
+            c.setVendedor(cursor.getString(15));
             cursor.moveToNext();
             al_cliente.add(c);
         }

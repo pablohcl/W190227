@@ -15,6 +15,12 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String CLIENTE_BAIRRO = "bairro";
     public static final String CLIENTE_RUA = "rua";
     public static final String CLIENTE_NUMERO = "numero";
+    public static final String CLIENTE_ULTIMA_DATA_DIA = "ultima_data_dia";
+    public static final String CLIENTE_ULTIMA_DATA_MES = "ultima_data_mes";
+    public static final String CLIENTE_ULTIMA_DATA_ANO = "ultima_data_ano";
+    public static final String CLIENTE_PROXIMA_DATA_DIA = "proxima_data_dia";
+    public static final String CLIENTE_PROXIMA_DATA_MES = "proxima_data_mes";
+    public static final String CLIENTE_PROXIMA_DATA_ANO = "proxima_data_ano";
     public static final String CLIENTE_FREQUENCIA = "frequencia";
     public static final String CLIENTE_OBS = "obs";
     public static final String CLIENTE_VENDEDOR = "vendedor";
@@ -28,6 +34,12 @@ public class BaseDB extends SQLiteOpenHelper {
             BaseDB.CLIENTE_BAIRRO,
             BaseDB.CLIENTE_RUA,
             BaseDB.CLIENTE_NUMERO,
+            BaseDB.CLIENTE_ULTIMA_DATA_DIA,
+            BaseDB.CLIENTE_ULTIMA_DATA_MES,
+            BaseDB.CLIENTE_ULTIMA_DATA_ANO,
+            BaseDB.CLIENTE_PROXIMA_DATA_DIA,
+            BaseDB.CLIENTE_PROXIMA_DATA_MES,
+            BaseDB.CLIENTE_PROXIMA_DATA_ANO,
             BaseDB.CLIENTE_FREQUENCIA,
             BaseDB.CLIENTE_OBS,
             BaseDB.CLIENTE_VENDEDOR
@@ -43,6 +55,12 @@ public class BaseDB extends SQLiteOpenHelper {
                     CLIENTE_BAIRRO+" TEXT, "+
                     CLIENTE_RUA+" TEXT, "+
                     CLIENTE_NUMERO+" TEXT, "+
+                    CLIENTE_ULTIMA_DATA_DIA+" INTEGER, "+
+                    CLIENTE_ULTIMA_DATA_MES+" INTEGER, "+
+                    CLIENTE_ULTIMA_DATA_ANO+" INTEGER, "+
+                    CLIENTE_PROXIMA_DATA_DIA+" INTEGER, "+
+                    CLIENTE_PROXIMA_DATA_MES+" INTEGER, "+
+                    CLIENTE_PROXIMA_DATA_ANO+" INTEGER, "+
                     CLIENTE_FREQUENCIA+" INTEGER, "+
                     CLIENTE_OBS+" TEXT, "+
                     CLIENTE_VENDEDOR+" INTEGER"+
@@ -110,7 +128,7 @@ public class BaseDB extends SQLiteOpenHelper {
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 2;
+    private static final int BANCO_VERSAO = 3;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);

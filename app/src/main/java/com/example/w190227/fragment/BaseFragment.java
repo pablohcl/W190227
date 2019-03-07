@@ -1,10 +1,12 @@
 package com.example.w190227.fragment;
 
+import android.content.Context;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.w190227.R;
 
