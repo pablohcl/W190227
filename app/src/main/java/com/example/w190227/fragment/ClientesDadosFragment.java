@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.w190227.R;
+import com.example.w190227.objetos.Cliente;
+import com.example.w190227.util.db.ClienteDB;
 
 public class ClientesDadosFragment extends BaseFragment {
 
@@ -33,6 +35,8 @@ public class ClientesDadosFragment extends BaseFragment {
     private TextInputLayout tvObs;
 
     private Bundle arguments;
+
+    private ClienteDB cliDB;
 
     @Nullable
     @Override
@@ -62,10 +66,12 @@ public class ClientesDadosFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Dados do Cliente");
 
+        cliDB = new ClienteDB(getActivity());
+
         setNavigationViewInvisible();
         setHasOptionsMenu(true);
         arguments = getArguments();
-        Toast.makeText(getActivity(), "id do cliente: "+arguments.getInt("id"), Toast.LENGTH_SHORT).show();
+        getClienteSelecionado(arguments.getInt("id"));
     }
 
     @Override
@@ -77,8 +83,9 @@ public class ClientesDadosFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_edit_cliente:
-                // Abrir fragment para editar o cliente
-                Toast.makeText(getActivity(), "Clicou em editar", Toast.LENGTH_SHORT).show();
+                ClientesEditarFragment clientesEditarFragment = new ClientesEditarFragment();
+                clientesEditarFragment.setArguments(arguments);
+                replaceFragmentWithBackStack(clientesEditarFragment);
                 return true;
 
                 default:
@@ -87,6 +94,29 @@ public class ClientesDadosFragment extends BaseFragment {
     }
 
     private void getClienteSelecionado(int id){
-        // IMPLEMENTAR
+        int idCliente = id;
+        Cliente c = cliDB.consultarSelecionado(id);
+
+        tvRazao.setText(c.getRazao());
+        tvFantasia.setText(c.getFantasia());
+        tvCidade.setText(c.getCidade());
+        tvBairro.setText(c.getBairro());
+        tvRua.setText(c.getRua());
+        tvNumero.setText(c.getNumero());
+        tvDiaUltima.setText(c.getUltimaDataDia());
+        tvMesUltima.setText(c.getUltimaDataMes());
+        tvAnoUltima.setText(c.getUltimaDataAno());
+        tvDiaProxima.setText(c.getProximaDataDia());
+        tvMesProxima.setText(c.getProximaDataMes());
+        tvAnoProxima.setText(c.getProximaDataAno());
+        tvFrequencia.setText(c.getFrequencia());
+        tvObs.getEditText().setText(c.getObs());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getClienteSelecionado(arguments.getInt("id"));
     }
 }

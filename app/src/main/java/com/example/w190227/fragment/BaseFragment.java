@@ -44,4 +44,11 @@ public class BaseFragment extends Fragment {
         ultimoDia.add(Calendar.DAY_OF_MONTH, numOfDays);
         return ultimoDia;
     }
+
+    public void clearBackStack(){
+        FragmentManager fm = getFragmentManager();
+        for(int i = 0; i< fm.getBackStackEntryCount(); ++i){
+            fm.popBackStack();
+        }
+    }
 }

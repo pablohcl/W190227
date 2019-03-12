@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fragmentTransaction.commit();
     }
 
-    private void clearBackStack(){
+    public void clearBackStack(){
         FragmentManager fm = getSupportFragmentManager();
         for(int i = 0; i< fm.getBackStackEntryCount(); ++i){
             fm.popBackStack();

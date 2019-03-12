@@ -79,6 +79,7 @@ public class ClientesFragment extends BaseFragment {
         super.onResume();
 
         setNavigationViewVisible();
+        clearBackStack();
     }
 
     private void refreshList(){
