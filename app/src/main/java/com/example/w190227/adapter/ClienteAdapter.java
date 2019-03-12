@@ -1,7 +1,12 @@
 package com.example.w190227.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.w190227.R;
+import com.example.w190227.fragment.BaseFragment;
+import com.example.w190227.fragment.ClientesDadosFragment;
 import com.example.w190227.objetos.Cliente;
 
 import java.util.ArrayList;
@@ -18,10 +25,12 @@ public class ClienteAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private ArrayList<Cliente> alClientes;
+    private Fragment frag;
 
-    public ClienteAdapter(Context context1, ArrayList<Cliente> clientes){
+    public ClienteAdapter(Context context1, ArrayList<Cliente> clientes, Fragment f){
         this.context = context1;
         this.alClientes = clientes;
+        this.frag = f;
     }
 
     @NonNull
@@ -47,7 +56,14 @@ public class ClienteAdapter extends RecyclerView.Adapter {
         customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicou no "+cliente.getId(), Toast.LENGTH_SHORT).show();
+                ClientesDadosFragment clientesDadosFragment = new ClientesDadosFragment();
+                FragmentTransaction ft = frag.getFragmentManager().beginTransaction();
+                Bundle arguments = new Bundle();
+                arguments.putInt("id", cliente.getId());
+                clientesDadosFragment.setArguments(arguments);
+                ft.replace(R.id.frame_content, clientesDadosFragment, null);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
     }

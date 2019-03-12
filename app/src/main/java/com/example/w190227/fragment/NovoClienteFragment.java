@@ -30,8 +30,6 @@ import java.util.Calendar;
 
 public class NovoClienteFragment extends BaseFragment {
 
-    private BottomNavigationView bottomNavigationView;
-
     private TextInputLayout et_razao;
     private TextInputLayout et_fantasia;
     private TextInputLayout et_rua;

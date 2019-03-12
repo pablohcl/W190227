@@ -82,7 +82,7 @@ public class ClientesFragment extends BaseFragment {
     }
 
     private void refreshList(){
-        ClienteAdapter adapter = new ClienteAdapter(getActivity(), alClientes);
+        ClienteAdapter adapter = new ClienteAdapter(getActivity(), alClientes, this);
         rvClientes.setAdapter(adapter);
         rvClientes.setHasFixedSize(true);
         rvClientes.setLayoutManager(new LinearLayoutManager(getActivity()));
