@@ -144,8 +144,7 @@ public class NovoClienteFragment extends BaseFragment {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     limpar();
-                    ClientesFragment clientesFragment = new ClientesFragment();
-                    replaceFragment(clientesFragment);
+                    getActivity().getSupportFragmentManager().popBackStack();
                 }
             }).show();
         }

@@ -91,18 +91,24 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String TBL_VENDEDOR = "vendedor";
     public static final String VENDEDOR_ID = "id";
     public static final String VENDEDOR_NOME = "nome";
+    public static final String VENDEDOR_META = "meta";
+    public static final String VENDEDOR_VLR_ATUAL = "vlr_atual";
 
     // ############### Colunas da tabela vendedor ############
     public static final String[] TBL_VENDEDOR_COLUNAS = {
             VENDEDOR_ID,
-            VENDEDOR_NOME
+            VENDEDOR_NOME,
+            VENDEDOR_META,
+            VENDEDOR_VLR_ATUAL
     };
 
     // ############### DDL - Criação da tabela vendedor ##########
     public static final String CREATE_VENDEDOR =
             "CREATE TABLE "+TBL_VENDEDOR+"("+
                     VENDEDOR_ID+" INTEGER PRIMARY KEY, "+
-                    VENDEDOR_NOME+" TEXT NOT NULL"+
+                    VENDEDOR_NOME+" TEXT NOT NULL, "+
+                    VENDEDOR_META+" REAL, "+
+                    VENDEDOR_VLR_ATUAL+" REAL"+
                     ");";
 
     // ################ DDL - Exclusão da tabela vendedor ##########
@@ -128,7 +134,7 @@ public class BaseDB extends SQLiteOpenHelper {
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 3;
+    private static final int BANCO_VERSAO = 4;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);
