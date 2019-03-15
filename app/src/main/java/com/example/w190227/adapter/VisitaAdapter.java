@@ -80,7 +80,7 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         } else if(hoje.equals(a)){
             return R.color.md_green_100;
         } else {
-            return R.color.md_blue_grey_200;
+            return R.color.md_blue_100;
         }
     }
 
