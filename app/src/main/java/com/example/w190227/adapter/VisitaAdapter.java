@@ -1,7 +1,10 @@
 package com.example.w190227.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import com.example.w190227.fragment.BaseFragment;
 import com.example.w190227.objetos.Cliente;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class VisitaAdapter extends RecyclerView.Adapter {
 
@@ -47,6 +51,7 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         customViewHolder.tvNumero.setText(String.valueOf(cliente.getNumero()));
         customViewHolder.tvBairro.setText(String.valueOf(cliente.getBairro()));
         customViewHolder.tvCidade.setText(String.valueOf(cliente.getCidade()));
+        customViewHolder.layout.setBackgroundColor(context.getResources().getColor(colorir(cliente.getProximaData())));
         customViewHolder.itemView.setTag(cliente.getId());
         customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +64,36 @@ public class VisitaAdapter extends RecyclerView.Adapter {
                 ft.replace(R.id.frame_content, clientesDadosFragment, null);
                 ft.addToBackStack(null);
                 ft.commit();*/
-                Toast.makeText(context, "Clicou em "+cliente.getId(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public int colorir(String a){
+        Calendar calendarioHoje = Calendar.getInstance();
+        int dia = calendarioHoje.get(Calendar.DAY_OF_MONTH);
+        int mes = (calendarioHoje.get(Calendar.MONTH)+1);
+        int ano = calendarioHoje.get(Calendar.YEAR);
+        String hoje = ano+""+filtroDoisDigitos(String.valueOf(mes))+""+filtroDoisDigitos(String.valueOf(dia));
+
+        if(Integer.valueOf(hoje) > Integer.valueOf(a)){
+            return R.color.md_red_100;
+        } else if(hoje.equals(a)){
+            return R.color.md_green_100;
+        } else {
+            return R.color.md_blue_grey_200;
+        }
+    }
+
+    public String filtroDoisDigitos(String a){
+        String result;
+
+        if(a.length() == 1){
+            result = "0"+a;
+        } else {
+            return a;
+        }
+
+        return result;
     }
 
     public String formatDate(String a){
@@ -80,6 +112,7 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         final TextView tvNumero;
         final TextView tvBairro;
         final TextView tvCidade;
+        final ConstraintLayout layout;
 
         public VisitaViewHolder(View v){
             super(v);
@@ -90,6 +123,7 @@ public class VisitaAdapter extends RecyclerView.Adapter {
             tvNumero = (TextView)v.findViewById(R.id.tv_numero_linha_visita);
             tvBairro = (TextView)v.findViewById(R.id.tv_bairro_linha_visita);
             tvCidade = (TextView)v.findViewById(R.id.tv_cidade_linha_visita);
+            layout = (ConstraintLayout) v.findViewById(R.id.bottom_layout_linha_visita);
         }
     }
 }
