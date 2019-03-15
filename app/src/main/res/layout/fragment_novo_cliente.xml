@@ -242,77 +242,17 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_dia_visita"
+                android:id="@+id/tv_ultima_data_cliente_novo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="11"
+                android:text="11/11/2011"
                 android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
-                app:layout_constraintStart_toEndOf="@+id/tv_dia_visita"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/tv_mes_visita"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="12"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
-                app:layout_constraintStart_toEndOf="@+id/tv_mes_visita"
-                app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/tv_ano_visita"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="19"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_mudar_data"
-                app:layout_constraintStart_toEndOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -325,7 +265,7 @@
                 android:background="@color/md_blue_800"
                 android:text="Mudar"
                 android:textColor="@color/md_white_1000"
-                app:layout_constraintStart_toEndOf="@+id/tv_ano_visita"
+                app:layout_constraintStart_toEndOf="@+id/tv_ultima_data_cliente_novo"
                 app:layout_constraintTop_toBottomOf="@+id/tv_dados_adicionais" />
 
         </android.support.constraint.ConstraintLayout>

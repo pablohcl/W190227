@@ -15,12 +15,8 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String CLIENTE_BAIRRO = "bairro";
     public static final String CLIENTE_RUA = "rua";
     public static final String CLIENTE_NUMERO = "numero";
-    public static final String CLIENTE_ULTIMA_DATA_DIA = "ultima_data_dia";
-    public static final String CLIENTE_ULTIMA_DATA_MES = "ultima_data_mes";
-    public static final String CLIENTE_ULTIMA_DATA_ANO = "ultima_data_ano";
-    public static final String CLIENTE_PROXIMA_DATA_DIA = "proxima_data_dia";
-    public static final String CLIENTE_PROXIMA_DATA_MES = "proxima_data_mes";
-    public static final String CLIENTE_PROXIMA_DATA_ANO = "proxima_data_ano";
+    public static final String CLIENTE_ULTIMA_DATA = "ultima_data";
+    public static final String CLIENTE_PROXIMA_DATA = "proxima_data";
     public static final String CLIENTE_FREQUENCIA = "frequencia";
     public static final String CLIENTE_OBS = "obs";
     public static final String CLIENTE_VENDEDOR = "vendedor";
@@ -34,12 +30,8 @@ public class BaseDB extends SQLiteOpenHelper {
             BaseDB.CLIENTE_BAIRRO,
             BaseDB.CLIENTE_RUA,
             BaseDB.CLIENTE_NUMERO,
-            BaseDB.CLIENTE_ULTIMA_DATA_DIA,
-            BaseDB.CLIENTE_ULTIMA_DATA_MES,
-            BaseDB.CLIENTE_ULTIMA_DATA_ANO,
-            BaseDB.CLIENTE_PROXIMA_DATA_DIA,
-            BaseDB.CLIENTE_PROXIMA_DATA_MES,
-            BaseDB.CLIENTE_PROXIMA_DATA_ANO,
+            BaseDB.CLIENTE_ULTIMA_DATA,
+            BaseDB.CLIENTE_PROXIMA_DATA,
             BaseDB.CLIENTE_FREQUENCIA,
             BaseDB.CLIENTE_OBS,
             BaseDB.CLIENTE_VENDEDOR
@@ -55,12 +47,8 @@ public class BaseDB extends SQLiteOpenHelper {
                     CLIENTE_BAIRRO+" TEXT, "+
                     CLIENTE_RUA+" TEXT, "+
                     CLIENTE_NUMERO+" TEXT, "+
-                    CLIENTE_ULTIMA_DATA_DIA+" INTEGER, "+
-                    CLIENTE_ULTIMA_DATA_MES+" INTEGER, "+
-                    CLIENTE_ULTIMA_DATA_ANO+" INTEGER, "+
-                    CLIENTE_PROXIMA_DATA_DIA+" INTEGER, "+
-                    CLIENTE_PROXIMA_DATA_MES+" INTEGER, "+
-                    CLIENTE_PROXIMA_DATA_ANO+" INTEGER, "+
+                    CLIENTE_ULTIMA_DATA+" TEXT, "+
+                    CLIENTE_PROXIMA_DATA+" TEXT, "+
                     CLIENTE_FREQUENCIA+" INTEGER, "+
                     CLIENTE_OBS+" TEXT, "+
                     CLIENTE_VENDEDOR+" INTEGER"+
@@ -69,6 +57,60 @@ public class BaseDB extends SQLiteOpenHelper {
     // ################ DDL - Exclusão da tabela cliente ############
     public static final String DROP_CLIENTE =
             "DROP TABLE IF EXISTS "+TBL_CLIENTE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ############## TABELA VISITAS #############
+    public static final String TBL_VISITAS = "t_visitas";
+    public static final String VISITAS_ID = "id";
+    public static final String VISITAS_CLIENTE = "cliente";
+    public static final String VISITAS_PROXIMA_DATA = "proxima_data";
+    public static final String VISITAS_OBS = "obs";
+    public static final String VISITAS_POSITIVADO = "positivado";
+
+    // ############ Colunas da tabela visitas ###########
+    public static final String[] TBL_VISITAS_COLUNAS = {
+            BaseDB.VISITAS_ID,
+            BaseDB.VISITAS_CLIENTE,
+            BaseDB.VISITAS_PROXIMA_DATA,
+            BaseDB.VISITAS_OBS,
+            BaseDB.VISITAS_POSITIVADO
+    };
+
+    // ############## DDL - Criação da tabela visitas #############
+    public static final String CREATE_VISITAS =
+            "CREATE TABLE "+TBL_VISITAS+"("+
+                    VISITAS_ID+" INTEGER PRIMARY KEY, "+
+                    VISITAS_CLIENTE+" INTEGER NOT NULL, "+
+                    VISITAS_PROXIMA_DATA+" TEXT, "+
+                    VISITAS_OBS+" TEXT, "+
+                    VISITAS_POSITIVADO+" INTEGER"+
+                    ");";
+
+    // ################ DDL - Exclusão da tabela cliente ############
+    public static final String DROP_VISITAS =
+            "DROP TABLE IF EXISTS "+TBL_VISITAS;
+
+
 
 
 
@@ -134,7 +176,7 @@ public class BaseDB extends SQLiteOpenHelper {
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 4;
+    private static final int BANCO_VERSAO = 6;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);
@@ -144,12 +186,14 @@ public class BaseDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_CLIENTE);
         sqLiteDatabase.execSQL(CREATE_VENDEDOR);
+        sqLiteDatabase.execSQL(CREATE_VISITAS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(DROP_CLIENTE);
         sqLiteDatabase.execSQL(DROP_VENDEDOR);
+        sqLiteDatabase.execSQL(DROP_VISITAS);
         onCreate(sqLiteDatabase);
     }
 }

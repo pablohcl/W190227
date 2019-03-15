@@ -9,36 +9,13 @@ public class Cliente {
     private String bairro;
     private String rua;
     private String numero;
-    private String ultimaDataDia;
-    private String ultimaDataMes;
-    private String ultimaDataAno;
-    private String proximaDataDia;
-    private String proximaDataMes;
-    private String proximaDataAno;
+    private String ultimaData;
+    private String proximaData;
     private String frequencia;
     private String obs;
     private String vendedor;
 
     public Cliente(){};
-
-    public Cliente(int id, String razao, String fantasia, String cidade, String bairro, String rua, String numero, String ultimaDataDia, String ultimaDataMes, String ultimaDataAno, String proximaDataDia, String proximaDataMes, String proximaDataAno, String frequencia, String obs, String vendedor) {
-        this.id = id;
-        this.razao = razao;
-        this.fantasia = fantasia;
-        this.cidade = cidade;
-        this.bairro = bairro;
-        this.rua = rua;
-        this.numero = numero;
-        this.ultimaDataDia = ultimaDataDia;
-        this.ultimaDataMes = ultimaDataMes;
-        this.ultimaDataAno = ultimaDataAno;
-        this.proximaDataDia = proximaDataDia;
-        this.proximaDataMes = proximaDataMes;
-        this.proximaDataAno = proximaDataAno;
-        this.frequencia = frequencia;
-        this.obs = obs;
-        this.vendedor = vendedor;
-    }
 
     public int getId() {
         return id;
@@ -96,52 +73,20 @@ public class Cliente {
         this.numero = numero;
     }
 
-    public String getUltimaDataDia() {
-        return ultimaDataDia;
+    public String getUltimaData() {
+        return ultimaData;
     }
 
-    public void setUltimaDataDia(String ultimaDataDia) {
-        this.ultimaDataDia = ultimaDataDia;
+    public void setUltimaData(String ultimaData) {
+        this.ultimaData = ultimaData;
     }
 
-    public String getUltimaDataMes() {
-        return ultimaDataMes;
+    public String getProximaData() {
+        return proximaData;
     }
 
-    public void setUltimaDataMes(String ultimaDataMes) {
-        this.ultimaDataMes = ultimaDataMes;
-    }
-
-    public String getUltimaDataAno() {
-        return ultimaDataAno;
-    }
-
-    public void setUltimaDataAno(String ultimaDataAno) {
-        this.ultimaDataAno = ultimaDataAno;
-    }
-
-    public String getProximaDataDia() {
-        return proximaDataDia;
-    }
-
-    public void setProximaDataDia(String proximaDataDia) {
-        this.proximaDataDia = proximaDataDia;
-    }
-
-    public String getProximaDataMes() {
-        return proximaDataMes;
-    }
-
-    public void setProximaDataMes(String proximaDataMes) {
-        this.proximaDataMes = proximaDataMes;
-    }
-
-    public String getProximaDataAno() {
-        return proximaDataAno;
-    }
-
-    public void setProximaDataAno(String proximaDataAno) {
-        this.proximaDataAno = proximaDataAno;
+    public void setProximaData(String proximaData) {
+        this.proximaData = proximaData;
     }
 
     public String getFrequencia() {

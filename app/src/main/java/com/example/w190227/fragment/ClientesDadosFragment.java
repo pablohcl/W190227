@@ -25,12 +25,8 @@ public class ClientesDadosFragment extends BaseFragment {
     private TextView tvNumero;
     private TextView tvBairro;
     private TextView tvCidade;
-    private TextView tvDiaUltima;
-    private TextView tvMesUltima;
-    private TextView tvAnoUltima;
-    private TextView tvDiaProxima;
-    private TextView tvMesProxima;
-    private TextView tvAnoProxima;
+    private TextView tvUltimaData;
+    private TextView tvProximaData;
     private TextView tvFrequencia;
     private TextInputLayout tvObs;
 
@@ -49,12 +45,8 @@ public class ClientesDadosFragment extends BaseFragment {
         tvNumero = v.findViewById(R.id.tv_numero_clientes_dados);
         tvBairro = v.findViewById(R.id.tv_bairro_clientes_dados);
         tvCidade = v.findViewById(R.id.tv_cidade_clientes_dados);
-        tvDiaUltima = v.findViewById(R.id.tv_dia_ultima_clientes_dados);
-        tvMesUltima = v.findViewById(R.id.tv_mes_ultima_clientes_dados);
-        tvAnoUltima = v.findViewById(R.id.tv_ano_ultima_clientes_dados);
-        tvDiaProxima = v.findViewById(R.id.tv_dia_proxima_clientes_dados);
-        tvMesProxima = v.findViewById(R.id.tv_mes_proxima_clientes_dados);
-        tvAnoProxima = v.findViewById(R.id.tv_ano_proxima_clientes_dados);
+        tvUltimaData = v.findViewById(R.id.tv_ultima_data_clientes_dados);
+        tvProximaData = v.findViewById(R.id.tv_proxima_data_clientes_dados);
         tvFrequencia = v.findViewById(R.id.tv_frequencia_clientes_dados);
         tvObs = v.findViewById(R.id.tv_obs_clientes_dados);
 
@@ -103,12 +95,8 @@ public class ClientesDadosFragment extends BaseFragment {
         tvBairro.setText(c.getBairro());
         tvRua.setText(c.getRua());
         tvNumero.setText(c.getNumero());
-        tvDiaUltima.setText(c.getUltimaDataDia());
-        tvMesUltima.setText(c.getUltimaDataMes());
-        tvAnoUltima.setText(c.getUltimaDataAno());
-        tvDiaProxima.setText(c.getProximaDataDia());
-        tvMesProxima.setText(c.getProximaDataMes());
-        tvAnoProxima.setText(c.getProximaDataAno());
+        tvUltimaData.setText(formatDate(c.getUltimaData()));
+        tvProximaData.setText(formatDate(c.getProximaData()));
         tvFrequencia.setText(c.getFrequencia());
         tvObs.getEditText().setText(c.getObs());
     }

@@ -178,123 +178,27 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_dia_ultima_clientes_dados"
+                android:id="@+id/tv_ultima_data_clientes_dados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="11"
+                android:text="11/11/2011"
                 android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_dia_ultima_clientes_dados"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/tv_mes_ultima_clientes_dados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="11"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView18"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_mes_ultima_clientes_dados"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/tv_ano_ultima_clientes_dados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="2011"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/tv_dia_proxima_clientes_dados"
+                android:id="@+id/tv_proxima_data_clientes_dados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="18"
+                android:text="18/11/2011"
                 android:textColor="@color/md_black_1000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_dia_proxima_clientes_dados"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/tv_mes_proxima_clientes_dados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="11"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView23"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="/"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_mes_proxima_clientes_dados"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/tv_ano_proxima_clientes_dados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="8dp"
-                android:text="2011"
-                android:textColor="@color/md_black_1000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView27"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <TextView

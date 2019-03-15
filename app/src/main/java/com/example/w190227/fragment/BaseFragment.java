@@ -51,4 +51,36 @@ public class BaseFragment extends Fragment {
             fm.popBackStack();
         }
     }
+
+    public String filtroDoisDigitos(String a){
+        String result;
+
+        if(a.length() == 1){
+            result = "0"+a;
+        } else {
+            return a;
+        }
+
+        return result;
+    }
+
+    public String filtroDesfazerDoisDigitos(String a){
+        String result;
+
+        if(a.length() == 2 && a.charAt(0) == 0){
+            result = a.substring(1);
+        } else {
+            return a;
+        }
+
+        return result;
+    }
+
+    public String formatDate(String a){
+        return a.substring(6)+"/"+a.substring(4, 6)+"/"+a.substring(0, 4);
+    }
+
+    public String unformatDate(String a){
+        return a.substring(6)+""+a.substring(3, 5)+""+a.substring(0, 2);
+    }
 }

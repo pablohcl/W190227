@@ -3,19 +3,29 @@ package com.example.w190227.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.w190227.R;
+import com.example.w190227.adapter.VisitaAdapter;
+import com.example.w190227.objetos.Cliente;
+import com.example.w190227.util.db.ClienteDB;
+import com.example.w190227.util.db.VisitaDB;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AgendaFragment extends BaseFragment {
 
     private Calendar calendar;
     private TextView tvDataAtual;
+    private RecyclerView rvAgenda;
+    private ArrayList<Cliente> alClientes;
+    private ClienteDB cliDB;
 
     public AgendaFragment(){
 
@@ -36,7 +46,12 @@ public class AgendaFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Agenda");
 
+        rvAgenda = getActivity().findViewById(R.id.rv_agenda);
+        alClientes = new ArrayList<>();
+        cliDB = new ClienteDB(getActivity());
+
         tvDataAtual.setText(setDataAtual());
+        mostrarTodos();
     }
 
     @Override
@@ -44,6 +59,20 @@ public class AgendaFragment extends BaseFragment {
         super.onResume();
 
         tvDataAtual.setText(setDataAtual());
+        setNavigationViewVisible();
+        clearBackStack();
+    }
+
+    private void mostrarTodos(){
+        alClientes = cliDB.consultarOrderByProximaDataDesc();
+        refreshList();
+    }
+
+    private void refreshList(){
+        VisitaAdapter adapter = new VisitaAdapter(getActivity(), alClientes, this);
+        rvAgenda.setAdapter(adapter);
+        rvAgenda.setHasFixedSize(true);
+        rvAgenda.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     private String setDataAtual(){

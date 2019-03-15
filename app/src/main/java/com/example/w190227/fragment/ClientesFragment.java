@@ -41,7 +41,6 @@ public class ClientesFragment extends BaseFragment {
 
         rvClientes = view.findViewById(R.id.rv_clientes);
         ArrayList<Cliente> alClientes = new ArrayList<>();
-        cliDB = new ClienteDB(getActivity());
         tvTotalClientes = view.findViewById(R.id.tv_total_clientes_vlr);
 
         return view;
@@ -51,6 +50,8 @@ public class ClientesFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Clientes");
+
+        cliDB = new ClienteDB(getActivity());
 
         setHasOptionsMenu(true);
         mostrarTodos();
