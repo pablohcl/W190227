@@ -1,11 +1,15 @@
 package com.example.w190227.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.w190227.R;
+import com.example.w190227.fragment.AtendimentoIniciar;
 import com.example.w190227.fragment.BaseFragment;
+import com.example.w190227.fragment.ClientesDadosFragment;
 import com.example.w190227.objetos.Cliente;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class VisitaAdapter extends RecyclerView.Adapter {
+public class VisitaAdapter extends MyBaseAdapter {
 
     private Context context;
     private ArrayList<Cliente> alVisitas;
@@ -56,14 +62,38 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*ClientesDadosFragment clientesDadosFragment = new ClientesDadosFragment();
-                FragmentTransaction ft = frag.getFragmentManager().beginTransaction();
-                Bundle arguments = new Bundle();
-                arguments.putInt("id", cliente.getId());
-                clientesDadosFragment.setArguments(arguments);
-                ft.replace(R.id.frame_content, clientesDadosFragment, null);
-                ft.addToBackStack(null);
-                ft.commit();*/
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setItems(R.array.alert_options_linha_visita, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch(i){
+                            case 0:
+                                AtendimentoIniciar atendimentoIniciar = new AtendimentoIniciar();
+                                FragmentTransaction ft = f.getFragmentManager().beginTransaction();
+                                Bundle arguments = new Bundle();
+                                arguments.putInt("id", cliente.getId());
+                                atendimentoIniciar.setArguments(arguments);
+                                ft.replace(R.id.frame_content, atendimentoIniciar, null);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                                break;
+
+                            case 1:
+                                ClientesDadosFragment clientesDadosFragment = new ClientesDadosFragment();
+                                FragmentTransaction ft2 = f.getFragmentManager().beginTransaction();
+                                Bundle arguments2 = new Bundle();
+                                arguments2.putInt("id", cliente.getId());
+                                clientesDadosFragment.setArguments(arguments2);
+                                ft2.replace(R.id.frame_content, clientesDadosFragment, null);
+                                ft2.addToBackStack(null);
+                                ft2.commit();
+                                break;
+
+                            default:
+
+                        }
+                    }
+                }).show();
             }
         });
     }
@@ -76,11 +106,11 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         String hoje = ano+""+filtroDoisDigitos(String.valueOf(mes))+""+filtroDoisDigitos(String.valueOf(dia));
 
         if(Integer.valueOf(hoje) > Integer.valueOf(a)){
-            return R.color.md_red_100;
+            return R.color.md_red_200;
         } else if(hoje.equals(a)){
-            return R.color.md_green_100;
+            return R.color.md_green_200;
         } else {
-            return R.color.md_blue_100;
+            return R.color.md_blue_200;
         }
     }
 
@@ -96,9 +126,9 @@ public class VisitaAdapter extends RecyclerView.Adapter {
         return result;
     }
 
-    public String formatDate(String a){
+    /*public String formatDate(String a){
         return a.substring(6)+"/"+a.substring(4, 6)+"/"+a.substring(0, 4);
-    }
+    }*/
 
     @Override
     public int getItemCount() {

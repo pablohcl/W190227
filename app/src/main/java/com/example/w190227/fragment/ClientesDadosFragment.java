@@ -19,6 +19,7 @@ import com.example.w190227.util.db.ClienteDB;
 
 public class ClientesDadosFragment extends BaseFragment {
 
+    private TextView tvId;
     private TextView tvRazao;
     private TextView tvFantasia;
     private TextView tvRua;
@@ -49,6 +50,7 @@ public class ClientesDadosFragment extends BaseFragment {
         tvProximaData = v.findViewById(R.id.tv_proxima_data_clientes_dados);
         tvFrequencia = v.findViewById(R.id.tv_frequencia_clientes_dados);
         tvObs = v.findViewById(R.id.tv_obs_clientes_dados);
+        tvId = v.findViewById(R.id.tv_id_clientes_dados);
 
         return v;
     }
@@ -89,6 +91,7 @@ public class ClientesDadosFragment extends BaseFragment {
         int idCliente = id;
         Cliente c = cliDB.consultarSelecionado(id);
 
+        tvId.setText(String.valueOf(c.getId()));
         tvRazao.setText(c.getRazao());
         tvFantasia.setText(c.getFantasia());
         tvCidade.setText(c.getCidade());

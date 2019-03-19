@@ -68,7 +68,7 @@ public class NovoClienteFragment extends BaseFragment {
 
         setNavigationViewInvisible();
         setHasOptionsMenu(true);
-        setDataAtual();
+        setDataAtual(tvUltimaData);
 
         btnMudar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +126,6 @@ public class NovoClienteFragment extends BaseFragment {
 
             cliDB.inserir(c);
 
-            limpar();
-
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setMessage("Cliente cadastrado com sucesso!").setTitle("Feito").setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -160,11 +158,6 @@ public class NovoClienteFragment extends BaseFragment {
         et_numero.getEditText().setText(null);
         et_frequencia.getEditText().setText(null);
         et_obs.getEditText().setText(null);
-    }
-
-    private void setDataAtual(){
-        Calendar calendar = Calendar.getInstance();
-        tvUltimaData.setText(filtroDoisDigitos(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)))+"/"+filtroDoisDigitos(String.valueOf((calendar.get(Calendar.MONTH)+1)))+"/"+String.valueOf(calendar.get(Calendar.YEAR)));
     }
 
     public void showDatePickerDialog(){

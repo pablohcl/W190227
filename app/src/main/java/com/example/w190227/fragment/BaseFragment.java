@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.example.w190227.R;
 
@@ -82,5 +83,10 @@ public class BaseFragment extends Fragment {
 
     public String unformatDate(String a){
         return a.substring(6)+""+a.substring(3, 5)+""+a.substring(0, 2);
+    }
+
+    public void setDataAtual(TextView tv){
+        Calendar calendar = Calendar.getInstance();
+        tv.setText(filtroDoisDigitos(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)))+"/"+filtroDoisDigitos(String.valueOf((calendar.get(Calendar.MONTH)+1)))+"/"+String.valueOf(calendar.get(Calendar.YEAR)));
     }
 }

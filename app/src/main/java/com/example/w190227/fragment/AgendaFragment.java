@@ -3,9 +3,13 @@ package com.example.w190227.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,6 +49,7 @@ public class AgendaFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Agenda");
+        setHasOptionsMenu(true);
 
         rvAgenda = getActivity().findViewById(R.id.rv_agenda);
         alClientes = new ArrayList<>();
@@ -52,6 +57,24 @@ public class AgendaFragment extends BaseFragment {
 
         tvDataAtual.setText(setDataAtual());
         mostrarTodos();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.actionbar_agenda, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_historico:
+                AgendaHistoricoFragment agendaHistoricoFragment = new AgendaHistoricoFragment();
+                replaceFragmentWithBackStack(agendaHistoricoFragment);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

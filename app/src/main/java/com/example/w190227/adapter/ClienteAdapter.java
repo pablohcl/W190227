@@ -21,7 +21,7 @@ import com.example.w190227.objetos.Cliente;
 
 import java.util.ArrayList;
 
-public class ClienteAdapter extends RecyclerView.Adapter {
+public class ClienteAdapter extends MyBaseAdapter {
 
     private Context context;
     private ArrayList<Cliente> alClientes;
