@@ -1,5 +1,6 @@
 package com.example.w190227.activity;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -7,16 +8,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.w190227.R;
 import com.example.w190227.fragment.AgendaFragment;
 import com.example.w190227.fragment.ClientesFragment;
 import com.example.w190227.fragment.HomeFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             HomeFragment homeFragment = new HomeFragment();
             replaceFragment(homeFragment);
         }
+        verificarGooglePlaySvc();
     }
 
     @Override
@@ -91,5 +98,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public void setNavigationViewVisible(){
         bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    private void verificarGooglePlaySvc(){
+        int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(MainActivity.this);
+        if( statusCode != ConnectionResult.SUCCESS)
+        {
+            Log.e("statuscode",statusCode+"");
+            if(GooglePlayServicesUtil.isUserRecoverableError(statusCode))
+            {
+                Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+                        statusCode,
+                        MainActivity.this,
+                        REQUEST_CODE_RECOVER_PLAY_SERVICES);
+
+                // If Google Play services can provide an error dialog
+                if (errorDialog != null) {
+                    errorDialog.show();
+                }
+            }
+            else
+            {
+                Toast.makeText(this, "Google Play Services não está instalado!",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

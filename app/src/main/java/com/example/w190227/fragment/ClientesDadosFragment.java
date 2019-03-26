@@ -30,6 +30,8 @@ public class ClientesDadosFragment extends BaseFragment {
     private TextView tvProximaData;
     private TextView tvFrequencia;
     private TextInputLayout tvObs;
+    private TextView tvLatitude;
+    private TextView tvLongitude;
 
     private Bundle arguments;
 
@@ -51,6 +53,8 @@ public class ClientesDadosFragment extends BaseFragment {
         tvFrequencia = v.findViewById(R.id.tv_frequencia_clientes_dados);
         tvObs = v.findViewById(R.id.tv_obs_clientes_dados);
         tvId = v.findViewById(R.id.tv_id_clientes_dados);
+        tvLatitude = v.findViewById(R.id.tv_latitude_cliente_dados);
+        tvLongitude = v.findViewById(R.id.tv_longitude_cliente_dados);
 
         return v;
     }
@@ -88,7 +92,6 @@ public class ClientesDadosFragment extends BaseFragment {
     }
 
     private void getClienteSelecionado(int id){
-        int idCliente = id;
         Cliente c = cliDB.consultarSelecionado(id);
 
         tvId.setText(String.valueOf(c.getId()));
@@ -102,6 +105,8 @@ public class ClientesDadosFragment extends BaseFragment {
         tvProximaData.setText(formatDate(c.getProximaData()));
         tvFrequencia.setText(c.getFrequencia());
         tvObs.getEditText().setText(c.getObs());
+        tvLatitude.setText(String.valueOf(c.getLatitude()));
+        tvLongitude.setText(String.valueOf(c.getLongitude()));
     }
 
     @Override

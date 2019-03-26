@@ -7,6 +7,8 @@ public class Visita {
     private String dataDaVisita;
     private String obs;
     private int positivado;
+    private double latitude;
+    private double longitude;
 
     public Visita() {
     }
@@ -49,5 +51,21 @@ public class Visita {
 
     public void setPositivado(int positivado) {
         this.positivado = positivado;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

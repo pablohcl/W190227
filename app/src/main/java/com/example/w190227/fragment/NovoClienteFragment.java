@@ -1,14 +1,19 @@
 package com.example.w190227.fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +27,17 @@ import android.widget.TextView;
 import com.example.w190227.R;
 import com.example.w190227.objetos.Cliente;
 import com.example.w190227.util.db.ClienteDB;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.Calendar;
 
@@ -37,6 +53,9 @@ public class NovoClienteFragment extends BaseFragment {
     private TextInputLayout et_obs;
     private TextView tvUltimaData;
     private Button btnMudar;
+    private TextView tvLatitude, tvLongitude;
+    private SupportMapFragment mapFragment;
+    private Button btnLocalizar;
 
     public NovoClienteFragment(){
 
@@ -57,6 +76,10 @@ public class NovoClienteFragment extends BaseFragment {
         et_obs = (TextInputLayout) v.findViewById(R.id.et_obs);
         tvUltimaData = v.findViewById(R.id.tv_ultima_data_cliente_novo);
         btnMudar = v.findViewById(R.id.btn_mudar_data);
+        tvLatitude = v.findViewById(R.id.tv_latitude_cliente_novo);
+        tvLongitude = v.findViewById(R.id.tv_longitude_cliente_novo);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_frag);
+        btnLocalizar = v.findViewById(R.id.btn_localizar);
 
         return v;
     }
@@ -65,15 +88,24 @@ public class NovoClienteFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Novo Cliente");
+        solicitarPermissao();
 
         setNavigationViewInvisible();
         setHasOptionsMenu(true);
         setDataAtual(tvUltimaData);
+        getUltimaPosicao(tvLatitude, tvLongitude);
 
         btnMudar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
+            }
+        });
+
+        btnLocalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setMap(mapFragment, Double.valueOf(tvLatitude.getText().toString()), Double.valueOf(tvLongitude.getText().toString()));
             }
         });
     }
@@ -104,12 +136,13 @@ public class NovoClienteFragment extends BaseFragment {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setMessage("Preencha todos os campos com *").setTitle("Atenção!").setNeutralButton("OK", null).show();
         } else {
+
             Calendar ultimaData = Calendar.getInstance();
             ultimaData.clear();
             ultimaData.set(Integer.valueOf(tvUltimaData.getText().toString().substring(6)), (Integer.valueOf(filtroDesfazerDoisDigitos(tvUltimaData.getText().toString().substring(3, 5)))-1), Integer.valueOf(filtroDesfazerDoisDigitos(tvUltimaData.getText().toString().substring(0, 2))));
             Calendar proximaData = calcularNovaData(ultimaData, Integer.valueOf(et_frequencia.getEditText().getText().toString()));
 
-            Cliente c = new Cliente();
+            final Cliente c = new Cliente();
             ClienteDB cliDB = new ClienteDB(getActivity());
             c.setId(cliDB.getCodigoNovo());
             c.setRazao(et_razao.getEditText().getText().toString());
@@ -123,6 +156,8 @@ public class NovoClienteFragment extends BaseFragment {
             c.setProximaData(String.valueOf(proximaData.get(Calendar.YEAR))+""+filtroDoisDigitos(String.valueOf((proximaData.get(Calendar.MONTH)+1)))+""+filtroDoisDigitos(String.valueOf(proximaData.get(Calendar.DAY_OF_MONTH))));
             c.setFrequencia(et_frequencia.getEditText().getText().toString());
             c.setObs(et_obs.getEditText().getText().toString());
+            c.setLatitude(Double.valueOf(tvLatitude.getText().toString()));
+            c.setLongitude(Double.valueOf(tvLongitude.getText().toString()));
 
             cliDB.inserir(c);
 

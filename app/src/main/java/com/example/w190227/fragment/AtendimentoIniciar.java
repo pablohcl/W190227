@@ -33,22 +33,19 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AtendimentoIniciar extends BaseFragment {
 
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
     private TextInputLayout tvMotivo;
     private TextView tvData;
     private TextView tvCliente;
+    private TextView tvLatitude, tvLongitude;
     private CheckBox cbPositivado;
     private Bundle arguments;
     private ClienteDB cliDB;
     private VisitaDB viDB;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    private boolean permissaoFineLocation;
-
-    private double latitude, longitude;
 
     public AtendimentoIniciar() {
     }
@@ -70,14 +67,16 @@ public class AtendimentoIniciar extends BaseFragment {
         tvData = getActivity().findViewById(R.id.tv_data_frag_atendimento_iniciar);
         tvCliente = getActivity().findViewById(R.id.tv_cliente_frag_atendimento_iniciar);
         cbPositivado = getActivity().findViewById(R.id.checkBox_positivado);
+        tvLatitude = getActivity().findViewById(R.id.tv_latitude_atendimento_iniciar);
+        tvLongitude = getActivity().findViewById(R.id.tv_longitude_atendimento_iniciar);
         arguments = getArguments();
         cliDB = new ClienteDB(getActivity());
         viDB = new VisitaDB(getActivity());
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         setDataAtual(tvData);
         setSelecionado(arguments.getInt("id"));
         solicitarPermissao();
+        getUltimaPosicao(tvLatitude, tvLongitude);
 
         cbPositivado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -126,32 +125,6 @@ public class AtendimentoIniciar extends BaseFragment {
             AlertDialog.Builder alertPreencherCampos = new AlertDialog.Builder(getActivity());
             alertPreencherCampos.setTitle("Atenção!").setMessage("Preencha o campo MOTIVO.").setNeutralButton("OK", null).show();
         } else {
-
-            if(permissaoFineLocation){
-                try {
-                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                            } else {
-                                latitude = 0;
-                                longitude = 0;
-                                Log.d("log", "fusedLocationProvider RETURN FAILED");
-                            }
-                        }
-                    });
-                } catch(SecurityException e){
-                    Log.d("log", "ERRO, A PERMISSAO NÃO FOI CONCEDIDA"+e);
-                }
-            } else {
-                latitude = 0;
-                longitude = 0;
-                Log.d("log", "PERMISSÃO NÃO CONCEDIDA");
-            }
-
-
             Visita v = new Visita();
 
             v.setId(viDB.getCodigoNovo());
@@ -159,6 +132,8 @@ public class AtendimentoIniciar extends BaseFragment {
             v.setDataDaVisita(unformatDate(tvData.getText().toString()));
             v.setObs(tvMotivo.getEditText().getText().toString());
             v.setPositivado(filtroBoolean(cbPositivado.isChecked()));
+            v.setLatitude(Double.valueOf(tvLatitude.getText().toString()));
+            v.setLongitude(Double.valueOf(tvLongitude.getText().toString()));
 
             viDB.inserir(v);
 
@@ -207,45 +182,5 @@ public class AtendimentoIniciar extends BaseFragment {
         tvCliente.setText(null);
         cbPositivado.setChecked(false);
         tvMotivo.getEditText().setText(null);
-    }
-
-    private void solicitarPermissao(){
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode){
-            case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    permissaoFineLocation = true;
-                    break;
-                } else {
-                    permissaoFineLocation = false;
-                    break;
-                }
-        }
     }
 }

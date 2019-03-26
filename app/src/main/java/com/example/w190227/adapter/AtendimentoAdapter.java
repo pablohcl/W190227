@@ -48,6 +48,8 @@ public class AtendimentoAdapter extends MyBaseAdapter {
         holder.tvCliente.setText(c.getRazao());
         holder.tvPositivado.setText(filtroBooleanToString(v.getPositivado()));
         holder.tvMotivo.setText(v.getObs());
+        holder.tvLatitude.setText(String.valueOf(v.getLatitude()));
+        holder.tvLongitude.setText(String.valueOf(v.getLongitude()));
         holder.itemView.setTag(v.getId());
     }
 
@@ -69,6 +71,8 @@ public class AtendimentoAdapter extends MyBaseAdapter {
         final TextView tvCliente;
         final TextView tvPositivado;
         final TextView tvMotivo;
+        final TextView tvLatitude;
+        final TextView tvLongitude;
 
         public AtendimentoViewHolder(View v){
             super(v);
@@ -77,6 +81,8 @@ public class AtendimentoAdapter extends MyBaseAdapter {
             tvCliente = (TextView)v.findViewById(R.id.tv_cliente_linha_atendimento);
             tvPositivado = (TextView)v.findViewById(R.id.tv_positivado_linha_atendimento);
             tvMotivo = (TextView)v.findViewById(R.id.tv_motivo_linha_atendimento);
+            tvLatitude = (TextView)v.findViewById(R.id.tv_latitude_linha_atendimento);
+            tvLongitude = (TextView)v.findViewById(R.id.tv_longitude_linha_atendimento);
         }
     }
 }

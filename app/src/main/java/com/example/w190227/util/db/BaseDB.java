@@ -20,6 +20,8 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String CLIENTE_FREQUENCIA = "frequencia";
     public static final String CLIENTE_OBS = "obs";
     public static final String CLIENTE_VENDEDOR = "vendedor";
+    public static final String CLIENTE_LATITUDE = "latitude";
+    public static final String CLIENTE_LONGITUDE = "longitude";
 
     // ############ Colunas da tabela cliente ###########
     public static final String[] TBL_CLIENTES_COLUNAS = {
@@ -34,7 +36,9 @@ public class BaseDB extends SQLiteOpenHelper {
             BaseDB.CLIENTE_PROXIMA_DATA,
             BaseDB.CLIENTE_FREQUENCIA,
             BaseDB.CLIENTE_OBS,
-            BaseDB.CLIENTE_VENDEDOR
+            BaseDB.CLIENTE_VENDEDOR,
+            BaseDB.CLIENTE_LATITUDE,
+            BaseDB.CLIENTE_LONGITUDE
     };
 
     // ############## DDL - Criação da tabela cliente #############
@@ -51,7 +55,9 @@ public class BaseDB extends SQLiteOpenHelper {
                     CLIENTE_PROXIMA_DATA+" TEXT, "+
                     CLIENTE_FREQUENCIA+" INTEGER, "+
                     CLIENTE_OBS+" TEXT, "+
-                    CLIENTE_VENDEDOR+" INTEGER"+
+                    CLIENTE_VENDEDOR+" INTEGER, "+
+                    CLIENTE_LATITUDE+" REAL, "+
+                    CLIENTE_LONGITUDE+" REAL"+
                     ");";
 
     // ################ DDL - Exclusão da tabela cliente ############
@@ -86,6 +92,8 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String VISITAS_PROXIMA_DATA = "proxima_data";
     public static final String VISITAS_OBS = "obs";
     public static final String VISITAS_POSITIVADO = "positivado";
+    public static final String VISITAS_LATITUDE = "latitude";
+    public static final String VISITAS_LONGITUDE = "longitude";
 
     // ############ Colunas da tabela visitas ###########
     public static final String[] TBL_VISITAS_COLUNAS = {
@@ -93,7 +101,9 @@ public class BaseDB extends SQLiteOpenHelper {
             BaseDB.VISITAS_CLIENTE,
             BaseDB.VISITAS_PROXIMA_DATA,
             BaseDB.VISITAS_OBS,
-            BaseDB.VISITAS_POSITIVADO
+            BaseDB.VISITAS_POSITIVADO,
+            BaseDB.VISITAS_LATITUDE,
+            BaseDB.VISITAS_LONGITUDE
     };
 
     // ############## DDL - Criação da tabela visitas #############
@@ -103,7 +113,9 @@ public class BaseDB extends SQLiteOpenHelper {
                     VISITAS_CLIENTE+" INTEGER NOT NULL, "+
                     VISITAS_PROXIMA_DATA+" TEXT, "+
                     VISITAS_OBS+" TEXT, "+
-                    VISITAS_POSITIVADO+" INTEGER"+
+                    VISITAS_POSITIVADO+" INTEGER, "+
+                    VISITAS_LATITUDE+" REAL, "+
+                    VISITAS_LONGITUDE+" REAL"+
                     ");";
 
     // ################ DDL - Exclusão da tabela cliente ############
@@ -176,7 +188,7 @@ public class BaseDB extends SQLiteOpenHelper {
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 6;
+    private static final int BANCO_VERSAO = 11;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);

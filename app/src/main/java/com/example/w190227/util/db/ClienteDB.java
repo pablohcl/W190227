@@ -43,6 +43,8 @@ public class ClienteDB {
         cv.put(BaseDB.CLIENTE_FREQUENCIA, c.getFrequencia());
         cv.put(BaseDB.CLIENTE_OBS, c.getObs());
         cv.put(BaseDB.CLIENTE_VENDEDOR, c.getVendedor());
+        cv.put(BaseDB.CLIENTE_LATITUDE, c.getLatitude());
+        cv.put(BaseDB.CLIENTE_LONGITUDE, c.getLongitude());
 
         abrirBanco();
         database.insert(BaseDB.TBL_CLIENTE, null, cv);
@@ -64,6 +66,8 @@ public class ClienteDB {
         cv.put(BaseDB.CLIENTE_FREQUENCIA, c.getFrequencia());
         cv.put(BaseDB.CLIENTE_OBS, c.getObs());
         cv.put(BaseDB.CLIENTE_VENDEDOR, c.getVendedor());
+        cv.put(BaseDB.CLIENTE_LATITUDE, c.getLatitude());
+        cv.put(BaseDB.CLIENTE_LONGITUDE, c.getLongitude());
 
         abrirBanco();
         String strFilter = "id='"+String.valueOf(c.getId())+"'";
@@ -100,6 +104,8 @@ public class ClienteDB {
             c.setFrequencia(cursor.getString(9));
             c.setObs(cursor.getString(10));
             c.setVendedor(cursor.getString(11));
+            c.setLatitude(cursor.getDouble(12));
+            c.setLongitude(cursor.getDouble(13));
             cursor.moveToNext();
             al_cliente.add(c);
         }
@@ -138,6 +144,8 @@ public class ClienteDB {
             c.setFrequencia(cursor.getString(9));
             c.setObs(cursor.getString(10));
             c.setVendedor(cursor.getString(11));
+            c.setLatitude(cursor.getDouble(12));
+            c.setLongitude(cursor.getDouble(13));
             cursor.moveToNext();
             al_cliente.add(c);
         }
@@ -175,6 +183,8 @@ public class ClienteDB {
             c.setFrequencia(cursor.getString(9));
             c.setObs(cursor.getString(10));
             c.setVendedor(cursor.getString(11));
+            c.setLatitude(cursor.getDouble(12));
+            c.setLongitude(cursor.getDouble(13));
 
         } else {
             Log.d("LOG", "Erro! Cliente não encontrado.");

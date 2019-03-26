@@ -14,6 +14,8 @@ public class Cliente {
     private String frequencia;
     private String obs;
     private String vendedor;
+    private double latitude;
+    private double longitude;
 
     public Cliente(){};
 
@@ -111,5 +113,21 @@ public class Cliente {
 
     public void setVendedor(String vendedor) {
         this.vendedor = vendedor;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

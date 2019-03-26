@@ -35,6 +35,8 @@ public class VisitaDB {
         cv.put(BaseDB.VISITAS_PROXIMA_DATA, c.getDataDaVisita());
         cv.put(BaseDB.VISITAS_OBS, c.getObs());
         cv.put(BaseDB.VISITAS_POSITIVADO, c.getPositivado());
+        cv.put(BaseDB.VISITAS_LATITUDE, c.getLatitude());
+        cv.put(BaseDB.VISITAS_LONGITUDE, c.getLongitude());
 
         abrirBanco();
         database.insert(BaseDB.TBL_VISITAS, null, cv);
@@ -63,6 +65,8 @@ public class VisitaDB {
             c.setDataDaVisita(cursor.getString(2));
             c.setObs(cursor.getString(3));
             c.setPositivado(cursor.getInt(4));
+            c.setLatitude(cursor.getDouble(5));
+            c.setLongitude(cursor.getDouble(6));
             cursor.moveToNext();
             al_visitas.add(c);
         }
@@ -93,6 +97,8 @@ public class VisitaDB {
             c.setDataDaVisita(cursor.getString(2));
             c.setObs(cursor.getString(3));
             c.setPositivado(cursor.getInt(4));
+            c.setLatitude(cursor.getDouble(5));
+            c.setLongitude(cursor.getDouble(6));
 
         } else {
             Log.d("LOG", "Erro! Cliente não encontrado.");
