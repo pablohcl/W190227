@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.example.w190227.R;
+import com.example.w190227.adapter.MyBaseAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,7 +37,7 @@ import java.util.Calendar;
 
 public class BaseFragment extends Fragment {
 
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
+    private static final int MY_PERMISSIONS_REQUEST_CODE = 0;
 
     protected void replaceFragment(Fragment f){
         FragmentManager fm = getFragmentManager();
@@ -114,14 +115,21 @@ public class BaseFragment extends Fragment {
     }
 
     public void solicitarPermissao(){
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        int location = ContextCompat.checkSelfPermission(getActivity(), perms[0]);
+        int internet = ContextCompat.checkSelfPermission(getActivity(), perms[1]);
+        int writeStorage = ContextCompat.checkSelfPermission(getActivity(), perms[2]);
+        int readStorage = ContextCompat.checkSelfPermission(getActivity(), perms[3]);
+
+        if (location != PackageManager.PERMISSION_GRANTED || internet != PackageManager.PERMISSION_GRANTED || writeStorage != PackageManager.PERMISSION_GRANTED || readStorage != PackageManager.PERMISSION_GRANTED) {
+            boolean rationaleLocation = shouldShowRequestPermissionRationale(perms[0]);
+            boolean rationaleInternet = shouldShowRequestPermissionRationale(perms[1]);
+            boolean rationaleWriteStorage = shouldShowRequestPermissionRationale(perms[2]);
+            boolean rationaleReadStorage = shouldShowRequestPermissionRationale(perms[3]);
 
             // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+            if (rationaleLocation || rationaleInternet || rationaleWriteStorage || rationaleReadStorage) {
+                requestPermissions(perms, MY_PERMISSIONS_REQUEST_CODE);
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
@@ -130,8 +138,8 @@ public class BaseFragment extends Fragment {
 
                 // No explanation needed, we can request the permission.
 
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                requestPermissions(perms, MY_PERMISSIONS_REQUEST_CODE);
+
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -143,14 +151,32 @@ public class BaseFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch(requestCode){
-            case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
+            case MY_PERMISSIONS_REQUEST_CODE:
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-                    break;
                 } else {
-                    getActivity().getSupportFragmentManager().popBackStack();
-                    break;
+                    getActivity().finish();
                 }
+
+                if(grantResults.length > 0 && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+
+                } else {
+                    getActivity().finish();
+                }
+
+                if(grantResults.length > 0 && grantResults[2] == PackageManager.PERMISSION_GRANTED){
+
+                } else {
+                    getActivity().finish();
+                }
+
+                if(grantResults.length > 0 && grantResults[3] == PackageManager.PERMISSION_GRANTED){
+
+                } else {
+                    getActivity().finish();
+                }
+
+                break;
         }
     }
 
@@ -212,8 +238,9 @@ public class BaseFragment extends Fragment {
             public void onMapReady(GoogleMap googleMap) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(new LatLng(lat, lon));
+                googleMap.clear();
                 googleMap.addMarker(markerOptions);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 16));
             }
         });
     }

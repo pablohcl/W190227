@@ -26,6 +26,7 @@ import com.example.w190227.objetos.Cliente;
 import com.example.w190227.util.db.ClienteDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.Calendar;
@@ -45,6 +46,8 @@ public class ClientesEditarFragment extends BaseFragment {
     private ClienteDB cliDB;
     private Bundle arguments;
     private TextView tvLatitude, tvLongitude;
+    private SupportMapFragment mapFragment;
+    private Button btnLocalizar;
 
     public ClientesEditarFragment(){};
 
@@ -65,6 +68,8 @@ public class ClientesEditarFragment extends BaseFragment {
         btnMudar = v.findViewById(R.id.btn_mudar_data);
         tvLatitude = v.findViewById(R.id.tv_latitude_cliente_novo);
         tvLongitude = v.findViewById(R.id.tv_longitude_cliente_novo);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_frag);
+        btnLocalizar = v.findViewById(R.id.btn_localizar);
 
         return v;
     }
@@ -87,6 +92,14 @@ public class ClientesEditarFragment extends BaseFragment {
         });
         arguments = getArguments();
         getClienteSelecionado(arguments.getInt("id"));
+
+        btnLocalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getUltimaPosicao(tvLatitude, tvLongitude);
+                setMap(mapFragment, Double.valueOf(tvLatitude.getText().toString()), Double.valueOf(tvLongitude.getText().toString()));
+            }
+        });
     }
 
     @Override
@@ -153,6 +166,8 @@ public class ClientesEditarFragment extends BaseFragment {
         et_obs.getEditText().setText(c.getObs());
         tvLatitude.setText(String.valueOf(c.getLatitude()));
         tvLongitude.setText(String.valueOf(c.getLongitude()));
+
+        setMap(mapFragment, c.getLatitude(), c.getLongitude());
     }
 
     public void atualizarCadastro(){

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.w190227.R;
 import com.example.w190227.objetos.Cliente;
 import com.example.w190227.util.db.ClienteDB;
+import com.google.android.gms.maps.SupportMapFragment;
 
 public class ClientesDadosFragment extends BaseFragment {
 
@@ -32,6 +33,7 @@ public class ClientesDadosFragment extends BaseFragment {
     private TextInputLayout tvObs;
     private TextView tvLatitude;
     private TextView tvLongitude;
+    private SupportMapFragment mapFragment;
 
     private Bundle arguments;
 
@@ -55,6 +57,7 @@ public class ClientesDadosFragment extends BaseFragment {
         tvId = v.findViewById(R.id.tv_id_clientes_dados);
         tvLatitude = v.findViewById(R.id.tv_latitude_cliente_dados);
         tvLongitude = v.findViewById(R.id.tv_longitude_cliente_dados);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_frag_dados);
 
         return v;
     }
@@ -107,6 +110,8 @@ public class ClientesDadosFragment extends BaseFragment {
         tvObs.getEditText().setText(c.getObs());
         tvLatitude.setText(String.valueOf(c.getLatitude()));
         tvLongitude.setText(String.valueOf(c.getLongitude()));
+
+        setMap(mapFragment, c.getLatitude(), c.getLongitude());
     }
 
     @Override

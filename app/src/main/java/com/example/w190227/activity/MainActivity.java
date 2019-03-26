@@ -18,6 +18,7 @@ import com.example.w190227.fragment.AgendaFragment;
 import com.example.w190227.fragment.ClientesFragment;
 import com.example.w190227.fragment.HomeFragment;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -101,15 +102,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void verificarGooglePlaySvc(){
-        int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(MainActivity.this);
+        int statusCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
         if( statusCode != ConnectionResult.SUCCESS)
         {
             Log.e("statuscode",statusCode+"");
-            if(GooglePlayServicesUtil.isUserRecoverableError(statusCode))
+            if(GoogleApiAvailability.getInstance().isUserResolvableError(statusCode))
             {
-                Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-                        statusCode,
+                Dialog errorDialog = GoogleApiAvailability.getInstance().getErrorDialog(
                         MainActivity.this,
+                        statusCode,
                         REQUEST_CODE_RECOVER_PLAY_SERVICES);
 
                 // If Google Play services can provide an error dialog

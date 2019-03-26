@@ -53,6 +53,8 @@ public class HomeFragment extends BaseFragment {
         tvVlrplastico = getActivity().findViewById(R.id.tv_vlr_plastico_home);
         tvVlrPapel = getActivity().findViewById(R.id.tv_vlr_papel_home);
 
+        solicitarPermissao();
+
         setMeta();
     }
 
