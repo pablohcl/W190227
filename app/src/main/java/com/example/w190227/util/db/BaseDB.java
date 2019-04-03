@@ -145,6 +145,7 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String TBL_VENDEDOR = "vendedor";
     public static final String VENDEDOR_ID = "id";
     public static final String VENDEDOR_NOME = "nome";
+    public static final String VENDEDOR_SENHA = "senha";
     public static final String VENDEDOR_META = "meta";
     public static final String VENDEDOR_VLR_ATUAL = "vlr_atual";
 
@@ -152,6 +153,7 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String[] TBL_VENDEDOR_COLUNAS = {
             VENDEDOR_ID,
             VENDEDOR_NOME,
+            VENDEDOR_SENHA,
             VENDEDOR_META,
             VENDEDOR_VLR_ATUAL
     };
@@ -161,6 +163,7 @@ public class BaseDB extends SQLiteOpenHelper {
             "CREATE TABLE "+TBL_VENDEDOR+"("+
                     VENDEDOR_ID+" INTEGER PRIMARY KEY, "+
                     VENDEDOR_NOME+" TEXT NOT NULL, "+
+                    VENDEDOR_SENHA+" TEXT, "+
                     VENDEDOR_META+" REAL, "+
                     VENDEDOR_VLR_ATUAL+" REAL"+
                     ");";
@@ -185,10 +188,17 @@ public class BaseDB extends SQLiteOpenHelper {
 
 
 
+
+
+
+
+
+
+
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 11;
+    private static final int BANCO_VERSAO = 12;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);

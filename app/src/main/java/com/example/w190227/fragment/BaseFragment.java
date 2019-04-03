@@ -214,7 +214,7 @@ public class BaseFragment extends Fragment {
             }
         } else {
             AlertDialog.Builder alertLigarGPS = new AlertDialog.Builder(getActivity());
-            alertLigarGPS.setTitle("Atenção!").setMessage("Para continuar é necessário ligar o GPS").setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            alertLigarGPS.setTitle("Atenção!").setMessage("Para continuar é necessário ligar o GPS no modo ALTA PRECISÃO").setNeutralButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     getActivity().getSupportFragmentManager().popBackStack();

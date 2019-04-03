@@ -3,7 +3,7 @@ package com.example.w190227.objetos;
 public class Vendedor {
 
     private int id;
-    private String nome;
+    private String nome, senha;
     private double meta;
     private double vlrAtual;
 
@@ -24,6 +24,14 @@ public class Vendedor {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public double getMeta() {
