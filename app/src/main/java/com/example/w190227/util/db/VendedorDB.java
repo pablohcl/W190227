@@ -11,6 +11,7 @@ import com.example.w190227.objetos.Vendedor;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class VendedorDB {
 
@@ -51,6 +52,39 @@ public class VendedorDB {
         fecharBanco();
     }
 
+    public ArrayList<Vendedor> consultar(){
+        ArrayList<Vendedor>  al_vendedores = new ArrayList<>();
+        abrirBanco();
+
+        Cursor cursor = database.query(
+                BaseDB.TBL_VENDEDOR,
+                BaseDB.TBL_VENDEDOR_COLUNAS,
+                null,
+                null,
+                null,
+                null,
+                BaseDB.VENDEDOR_NOME
+        );
+
+        if(cursor.getCount() != 0){
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                Vendedor c = new Vendedor();
+                c.setId(cursor.getInt(0));
+                c.setNome(cursor.getString(1));
+                c.setSenha(cursor.getString(2));
+                c.setMeta(cursor.getDouble(3));
+                c.setVlrAtual(cursor.getDouble(4));
+                cursor.moveToNext();
+                al_vendedores.add(c);
+            }
+        }
+
+        cursor.close();
+        fecharBanco();
+        return al_vendedores;
+    }
+
     public Vendedor consultarSelecionado(int id){
         Vendedor c = new Vendedor();
         abrirBanco();
@@ -89,7 +123,7 @@ public class VendedorDB {
         Cursor cursor = database.query(
                 BaseDB.TBL_VENDEDOR,
                 BaseDB.TBL_VENDEDOR_COLUNAS,
-                BaseDB.VENDEDOR_NOME+" LIKE '%"+nome+"%' & "+BaseDB.VENDEDOR_SENHA+" LIKE '%"+senha+"%' ",
+                BaseDB.VENDEDOR_NOME+" LIKE '%"+nome+"%' AND "+BaseDB.VENDEDOR_SENHA+" LIKE '%"+senha+"%' ",
                 null,
                 null,
                 null,

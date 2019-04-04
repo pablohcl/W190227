@@ -56,7 +56,6 @@ public class Downloader {
         for(int i = 0; i < list.size(); i++){
             String linha = list.get(i);
             String[] dadosLinha = linha.split(";");
-            Toast.makeText(context, "valor do primeiro campo: "+Integer.parseInt(dadosLinha[0].replaceAll("\\p{C}", "")), Toast.LENGTH_SHORT).show();
 
             Vendedor v = new Vendedor();
             v.setId(Integer.parseInt(dadosLinha[0].replaceAll("\\p{C}", "")));
