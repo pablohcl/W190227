@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">W190227</string>
+    <string name="app_name">WATT Metas</string>
 
     <string name="novo_atendimento_linha_visita">Iniciar atendimento</string>
     <string name="ver_cliente_linha_visita">Ver cadastro do cliente</string>

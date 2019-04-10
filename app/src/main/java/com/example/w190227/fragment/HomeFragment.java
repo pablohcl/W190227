@@ -4,33 +4,48 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.w190227.R;
+import com.example.w190227.activity.MainActivity;
+import com.example.w190227.adapter.MetaAdapter;
+import com.example.w190227.objetos.Categoria;
+import com.example.w190227.objetos.Meta;
 import com.example.w190227.objetos.Vendedor;
+import com.example.w190227.util.db.CategoriaDB;
 import com.example.w190227.util.db.Downloader;
+import com.example.w190227.util.db.MetaDB;
+import com.example.w190227.util.db.VendedorDB;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class HomeFragment extends BaseFragment {
 
     private ProgressBar progressBar;
-    private ProgressBar progressBar2;
-    private ProgressBar progressBar3;
-    private ProgressBar progressBar4;
     private TextView tvVlrAtual;
     private TextView tvMeta;
-    private TextView tvVlr2;
-    private TextView tvVlrplastico;
-    private TextView tvVlrPapel;
+    private RecyclerView rvHome;
+    private ArrayList<Categoria> alCategorias;
+    private CategoriaDB catDB;
+    private VendedorDB venDB;
+    private MetaDB meDB;
 
     public HomeFragment(){
     }
@@ -47,47 +62,54 @@ public class HomeFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getActivity().setTitle("Início");
+        setHasOptionsMenu(true);
 
         progressBar = getActivity().findViewById(R.id.progressBar);
-        progressBar2 = getActivity().findViewById(R.id.progressBar3);
-        progressBar3 = getActivity().findViewById(R.id.progressBar4);
-        progressBar4 = getActivity().findViewById(R.id.progressBar5);
         tvMeta = getActivity().findViewById(R.id.tv_meta_home);
         tvVlrAtual = getActivity().findViewById(R.id.tv_vlr_atual_home);
-        tvVlr2 = getActivity().findViewById(R.id.tv_vlr_aluminio_home);
-        tvVlrplastico = getActivity().findViewById(R.id.tv_vlr_plastico_home);
-        tvVlrPapel = getActivity().findViewById(R.id.tv_vlr_papel_home);
+        rvHome = getActivity().findViewById(R.id.rv_home_fragment);
+        alCategorias = new ArrayList<>();
+        catDB = new CategoriaDB(getActivity());
+        venDB = new VendedorDB(getActivity());
+        meDB = new MetaDB(getActivity());
 
         solicitarPermissao();
-
-        setMeta();
     }
 
-    private void setMeta(){
-        Vendedor v = new Vendedor();
+    private void refreshList(){
+        MetaAdapter adapter = new MetaAdapter(getActivity(), alCategorias, this);
+        rvHome.setAdapter(adapter);
+        rvHome.setHasFixedSize(true);
+        rvHome.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
 
-        v.setId(1);
-        v.setNome("Pablo");
-        v.setMeta(10000.50);
-        v.setVlrAtual(7500.05);
+    public void mostrarTodos(){
+        alCategorias = catDB.consultar();
+        Vendedor v = venDB.consultarSelecionado(MainActivity.VENDEDOR);
+        Double meta = v.getMeta();
+        tvMeta.setText(new DecimalFormat("#,##0.00").format(meta));
+        progressBar.setMax(meta.intValue());
+        Double vlrTotalAtual = meDB.consultarVlrTotalAtual(MainActivity.VENDEDOR);
+        tvVlrAtual.setText(new DecimalFormat("#,##0.00").format(vlrTotalAtual));
+        progressBar.setProgress(vlrTotalAtual.intValue());
+        refreshList();
+    }
 
-        tvVlrAtual.setText(String.valueOf(7500));
-        tvMeta.setText(String.valueOf(10000));
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.actionbar_home_fragment, menu);
+    }
 
-        progressBar.setMax(10000);
-        progressBar.setProgress(7500);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_atualizar:
+                mostrarTodos();
+                return true;
 
-        tvVlr2.setText(String.valueOf(3400));
-        progressBar2.setMax(10000);
-        progressBar2.setProgress(3400);
-
-        tvVlrplastico.setText(String.valueOf(3000));
-        progressBar3.setMax(10000);
-        progressBar3.setProgress(3000);
-
-        tvVlrPapel.setText(String.valueOf(1100));
-        progressBar4.setMax(10000);
-        progressBar4.setProgress(1100);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 

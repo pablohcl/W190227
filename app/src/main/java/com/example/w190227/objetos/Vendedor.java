@@ -5,7 +5,6 @@ public class Vendedor {
     private int id;
     private String nome, senha;
     private double meta;
-    private double vlrAtual;
 
     public Vendedor() {
     }
@@ -40,13 +39,5 @@ public class Vendedor {
 
     public void setMeta(double meta) {
         this.meta = meta;
-    }
-
-    public double getVlrAtual() {
-        return vlrAtual;
-    }
-
-    public void setVlrAtual(double vlrAtual) {
-        this.vlrAtual = vlrAtual;
     }
 }

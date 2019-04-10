@@ -31,11 +31,11 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity /*implements BottomNavigationView.OnNavigationItemSelectedListener*/ {
 
     private static boolean LOGGED;
     private static boolean MASTER;
-    private static int VENDEDOR;
+    public static int VENDEDOR;
     private static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1;
     private BottomNavigationView bottomNavigationView;
 
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        //bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        //bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         if(savedInstanceState == null){
             HomeFragment homeFragment = new HomeFragment();
@@ -65,7 +65,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-    @Override
+    private void baixar(String name){
+        try {
+            DownloaderAsyncTask download2 = new DownloaderAsyncTask(name);
+            URL url2 = new URL("http://www.wattdistribuidora.com.br/mobile/"+name+".txt");
+            download2.execute(url2);
+        }catch(Exception e){
+            Log.d("LOG", "ERRO: "+e);
+        }
+    }
+
+    /*@Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         switch(id){
@@ -95,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         return true;
-    }
+    }*/
 
 
 
@@ -170,11 +180,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         LOGGED = true;
                         MASTER = true;
                         VENDEDOR = 0;
-                        Toast.makeText(MainActivity.this, "Bem vindo "+usuario, Toast.LENGTH_SHORT).show();
+                        setTitle("Bem vindo, "+usuario.toUpperCase());
                     } else if(v.getNome() != null){
                         LOGGED = true;
                         VENDEDOR = v.getId();
-                        Toast.makeText(MainActivity.this, "Bem vindo "+v.getNome(), Toast.LENGTH_SHORT).show();
+                        setTitle("Bem vindo, "+v.getNome().toUpperCase());
+                        baixar("metas");
+                        baixar("grupo");
                     } else {
                         Toast.makeText(MainActivity.this, "Dados incorretos!", Toast.LENGTH_SHORT).show();
                         verificarLogin();
@@ -193,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }).show();
         } else {
             try{
-                DownloaderAsyncTask download = new DownloaderAsyncTask();
+                DownloaderAsyncTask download = new DownloaderAsyncTask("vendedores");
                 URL url = new URL("http://www.wattdistribuidora.com.br/mobile/vendedores.txt");
                 download.execute(url);
             }catch(Exception e){
@@ -204,13 +216,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public class DownloaderAsyncTask extends AsyncTask<URL, Void, ArrayList<String>> {
 
+        private String fileName;
+
+        public DownloaderAsyncTask(String fileName) {
+            this.fileName = fileName;
+        }
+
         @Override
         protected ArrayList<String> doInBackground(URL... urls) {
             ArrayList<String> result;
             try {
                 Downloader download = new Downloader();
                 URL url = urls[0];
-                result = download.baixarTxt(url, "grupos");
+                result = download.baixarTxt(url);
             }catch(Exception e){
                 Log.d("LOG", "ERRO: "+e);
                 result = new ArrayList<>();
@@ -223,8 +241,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         protected void onPostExecute(ArrayList<String> s) {
             Log.d("LOG", "Baixou: "+s);
             Downloader download = new Downloader();
-            download.salvarNoBanco(s, getBaseContext());
-            verificarLogin();
+            download.salvarNoBanco(s, getBaseContext(), fileName);
+            if(fileName == "vendedores") {
+                verificarLogin();
+            }
         }
     }
 }

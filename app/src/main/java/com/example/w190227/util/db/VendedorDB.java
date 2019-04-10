@@ -38,7 +38,6 @@ public class VendedorDB {
         cv.put(BaseDB.VENDEDOR_NOME, c.getNome());
         cv.put(BaseDB.VENDEDOR_SENHA, loginUtil.cript(c.getSenha()));
         cv.put(BaseDB.VENDEDOR_META, c.getMeta());
-        cv.put(BaseDB.VENDEDOR_VLR_ATUAL, c.getVlrAtual());
 
         abrirBanco();
         database.insert(BaseDB.TBL_VENDEDOR, null, cv);
@@ -74,7 +73,6 @@ public class VendedorDB {
                 c.setNome(cursor.getString(1));
                 c.setSenha(cursor.getString(2));
                 c.setMeta(cursor.getDouble(3));
-                c.setVlrAtual(cursor.getDouble(4));
                 cursor.moveToNext();
                 al_vendedores.add(c);
             }
@@ -105,7 +103,6 @@ public class VendedorDB {
             c.setNome(cursor.getString(1));
             c.setSenha(cursor.getString(2));
             c.setMeta(cursor.getDouble(3));
-            c.setVlrAtual(cursor.getDouble(4));
 
         } else {
             Log.d("LOG", "Erro! Vendedor não encontrado.");
@@ -136,7 +133,6 @@ public class VendedorDB {
             c.setNome(cursor.getString(1));
             c.setSenha(cursor.getString(2));
             c.setMeta(cursor.getDouble(3));
-            c.setVlrAtual(cursor.getDouble(4));
 
         } else {
             Log.d("LOG", "Erro! Vendedor não encontrado.");

@@ -118,7 +118,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     VISITAS_LONGITUDE+" REAL"+
                     ");";
 
-    // ################ DDL - Exclusão da tabela cliente ############
+    // ################ DDL - Exclusão da tabela VISITAS ############
     public static final String DROP_VISITAS =
             "DROP TABLE IF EXISTS "+TBL_VISITAS;
 
@@ -147,15 +147,13 @@ public class BaseDB extends SQLiteOpenHelper {
     public static final String VENDEDOR_NOME = "nome";
     public static final String VENDEDOR_SENHA = "senha";
     public static final String VENDEDOR_META = "meta";
-    public static final String VENDEDOR_VLR_ATUAL = "vlr_atual";
 
     // ############### Colunas da tabela vendedor ############
     public static final String[] TBL_VENDEDOR_COLUNAS = {
             VENDEDOR_ID,
             VENDEDOR_NOME,
             VENDEDOR_SENHA,
-            VENDEDOR_META,
-            VENDEDOR_VLR_ATUAL
+            VENDEDOR_META
     };
 
     // ############### DDL - Criação da tabela vendedor ##########
@@ -164,8 +162,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     VENDEDOR_ID+" INTEGER PRIMARY KEY, "+
                     VENDEDOR_NOME+" TEXT NOT NULL, "+
                     VENDEDOR_SENHA+" TEXT, "+
-                    VENDEDOR_META+" REAL, "+
-                    VENDEDOR_VLR_ATUAL+" REAL"+
+                    VENDEDOR_META+" REAL"+
                     ");";
 
     // ################ DDL - Exclusão da tabela vendedor ##########
@@ -173,6 +170,89 @@ public class BaseDB extends SQLiteOpenHelper {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ############## TABELA METAS ##############
+    public static final String TBL_METAS = "metas";
+    public static final String METAS_ID = "id";
+    public static final String METAS_VENDEDOR = "vendedor";
+    public static final String METAS_CATEGORIA = "categoria";
+    public static final String METAS_VALOR = "valor";
+
+    // ############### Colunas da tabela METAS ############
+    public static final String[] TBL_METAS_COLUNAS = {
+            METAS_ID,
+            METAS_VENDEDOR,
+            METAS_CATEGORIA,
+            METAS_VALOR
+    };
+
+    // ############### DDL - Criação da tabela METAS ##########
+    public static final String CREATE_METAS =
+            "CREATE TABLE "+TBL_METAS+"("+
+                    METAS_ID+" INTEGER PRIMARY KEY, "+
+                    METAS_VENDEDOR+" INTEGER NOT NULL, "+
+                    METAS_CATEGORIA+" INTEGER NOT NULL, "+
+                    METAS_VALOR+" REAL"+
+                    ");";
+
+    // ################ DDL - Exclusão da tabela vendedor ##########
+    public static final String DROP_METAS = "DROP TABLE IF EXISTS "+TBL_METAS;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ############## TABELA CATEGORIAS ##############
+    public static final String TBL_CATEGORIAS = "categorias";
+    public static final String CATEGORIAS_ID = "id";
+    public static final String CATEGORIAS_NOME = "nome";
+
+    // ############### Colunas da tabela CATEGORIAS ############
+    public static final String[] TBL_CATEGORIAS_COLUNAS = {
+            CATEGORIAS_ID,
+            CATEGORIAS_NOME
+    };
+
+    // ############### DDL - Criação da tabela CATEGORIAS ##########
+    public static final String CREATE_CATEGORIAS =
+            "CREATE TABLE "+TBL_CATEGORIAS+"("+
+                    CATEGORIAS_ID+" INTEGER PRIMARY KEY, "+
+                    CATEGORIAS_NOME+" TEXT NOT NULL"+
+                    ");";
+
+    // ################ DDL - Exclusão da tabela CATEGORIAS ##########
+    public static final String DROP_CATEGORIAS = "DROP TABLE IF EXISTS "+TBL_CATEGORIAS;
 
 
 
@@ -198,7 +278,7 @@ public class BaseDB extends SQLiteOpenHelper {
     // ############ BANCO, NOME, VERSAO #############
 
     private static final String BANCO_NOME = "w190227.sqlite";
-    private static final int BANCO_VERSAO = 14;
+    private static final int BANCO_VERSAO = 17;
 
     public BaseDB(Context context){
         super(context, BANCO_NOME, null, BANCO_VERSAO);
@@ -209,6 +289,8 @@ public class BaseDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_CLIENTE);
         sqLiteDatabase.execSQL(CREATE_VENDEDOR);
         sqLiteDatabase.execSQL(CREATE_VISITAS);
+        sqLiteDatabase.execSQL(CREATE_METAS);
+        sqLiteDatabase.execSQL(CREATE_CATEGORIAS);
     }
 
     @Override
@@ -216,6 +298,8 @@ public class BaseDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_CLIENTE);
         sqLiteDatabase.execSQL(DROP_VENDEDOR);
         sqLiteDatabase.execSQL(DROP_VISITAS);
+        sqLiteDatabase.execSQL(DROP_METAS);
+        sqLiteDatabase.execSQL(DROP_CATEGORIAS);
         onCreate(sqLiteDatabase);
     }
 }
